@@ -21,4 +21,4 @@ jobs:
         uses: docker://andsande/prefect:latest
         with:
           entrypoint: "/bin/bash"
-          args: "-c 'python /path/to/your/script.py'"
+          args: "-c 'python strompriser.py'"
