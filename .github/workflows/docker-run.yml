@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
-      PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}    
+      PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
     steps:
       # Checkout the repository code
       - name: Checkout code
