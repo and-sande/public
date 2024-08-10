@@ -68,7 +68,7 @@ def main_flow():
     chromedriver_autoinstaller.install()
     # Chrome options
     chrome_options = webdriver.ChromeOptions()
-    options = ["--window-size=1920,1080", "--headless=new"]
+    options = ["--headless=new", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage", "--disable-search-engine-choice-screen"]
     for option in options:
         chrome_options.add_argument(option)
 
