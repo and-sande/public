@@ -1,3 +1,13 @@
+try:
+    import undetected_chromedriver as uc
+except ImportError:
+    import subprocess
+    subprocess.check_call(["python", "-m", "pip", "install", "undetected-chromedriver"])
+    import undetected_chromedriver as uc
+
+# Your existing code here
+
+
 import re
 import pandas as pd
 from selenium import webdriver
