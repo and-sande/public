@@ -17,8 +17,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Run Script in Docker Container
+      - name: Run Script from Docker Image
         uses: docker://andsande/prefect:latest
         with:
-          entrypoint: "/bin/bash"
-          args: "-c 'python strompriser.py'"
+          entrypoint: /bin/bash
+          args: -c "python /opt/prefect/flows/strompriser.py"
