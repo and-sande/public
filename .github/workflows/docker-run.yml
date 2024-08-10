@@ -1,6 +1,7 @@
 name: Run Python Script from GitHub Repo in Docker
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
