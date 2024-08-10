@@ -18,6 +18,8 @@ jobs:
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
         run: |
           docker run --shm-size=1g --memory=2g --cpus=2 \
+            -e PREFECT_API_KEY=${{ secrets.PREFECT_API_KEY }} \
+            -e PREFECT_API_URL=${{ secrets.PREFECT_API_URL }} \
             -v ${{ github.workspace }}:/workspace \
             -w /workspace \
             andsande/prefect:latest \
