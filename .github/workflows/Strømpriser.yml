@@ -15,9 +15,6 @@ jobs:
       
       # Run the Docker container
       - name: Run script in Docker container
-        env:
-          PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
-          PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
         run: |
           docker run --shm-size=1g --memory=2g --cpus=2 \
             -e PREFECT_API_KEY=${{ secrets.PREFECT_API_KEY }} \
