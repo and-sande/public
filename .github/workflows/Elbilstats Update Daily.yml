@@ -23,9 +23,8 @@ jobs:
             -e PYTHONANYWHERE_API=${{ secrets.PYTHONANYWHERE_API }} \
             -e ELBILSTATS_FTP_USERNAME=${{ secrets.ELBILSTATS_FTP_USERNAME }} \
             -e ELBILSTATS_FTP_PASSWORD=${{ secrets.ELBILSTATS_FTP_PASSWORD }} \
-
             -v ${{ github.workspace }}:/workspace \
             -w /workspace \
             andsande/prefect:latest \
-            python Code/Strømpriser/strompriser.py
+            python Code/Elbilstats/Elbilstats update daily.py
       
