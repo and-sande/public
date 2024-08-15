@@ -1,0 +1,32 @@
+name: Electricity Prices Daily Update
+
+on:
+  workflow_dispatch:
+  schedule: 
+    - cron: "0 12 * * *"
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Run the Docker container
+      - name: Run script in Docker container
+        env:
+          PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
+          PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
+        run: |
+          docker run --shm-size=1g --memory=2g --cpus=2 \
+            -e PREFECT_API_KEY=${{ secrets.PREFECT_API_KEY }} \
+            -e PREFECT_API_URL=${{ secrets.PREFECT_API_URL }} \
+            -e STROMPRISER_USERNAME=${{ secrets.STROMPRISER_USERNAME }} \
+            -e STROMPRISER_API_TOKEN=${{ secrets.STROMPRISER_API_TOKEN }} \
+
+            -v ${{ github.workspace }}:/workspace \
+            -w /workspace \
+            andsande/prefect:latest \
+            python Code/Strømpriser/strompriser.py
+      

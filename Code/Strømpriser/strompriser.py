@@ -21,7 +21,6 @@ import chromedriver_autoinstaller
 @task
 def strompriser_update_price():
 # Define the Excel file path
-
     chromedriver_autoinstaller.install()  # Check if the current version of chromedriver exists
     chrome_options = webdriver.ChromeOptions()    
     # Add your options as needed    
@@ -193,8 +192,8 @@ def upload_file_today():
     max_attempts = 3 
     for attempt in range (1, max_attempts + 1):
         # Define PythonAnywhere username and API token
-        username = 'andsande'
-        api_token = 'f76bb882c94ff3286f770c494534bb03b9ed27a4'
+        username = os.getenv('STROMPRISER_USERNAME')
+        api_token = os.getenv('STROMPRISER_API_TOKEN')
 
         # Define file path of the Excel file to upload
         excel_today = "./Strompriser/strompriser_today.xlsx"
@@ -237,8 +236,8 @@ def upload_file_yesterday():
     max_attempts = 3 
     for attempt in range (1, max_attempts + 1):
         # Define PythonAnywhere username and API token
-        username = 'andsande'
-        api_token = 'f76bb882c94ff3286f770c494534bb03b9ed27a4'
+        username = os.getenv('STROMPRISER_USERNAME')
+        api_token = os.getenv('STROMPRISER_API_TOKEN')
 
         # Define file path of the Excel file to upload
         excel_yesterday = "./Strompriser/strompriser_yesterday.xlsx"
@@ -279,9 +278,8 @@ def upload_file_yesterday():
 @task
 def Reload_PY_server():
     
-    # Replace 'your_username' and 'your_api_token' with your PythonAnywhere username and API token
-    username = 'andsande'
-    api_token = 'f76bb882c94ff3286f770c494534bb03b9ed27a4'
+    username = os.getenv('STROMPRISER_USERNAME')
+    api_token = os.getenv('STROMPRISER_API_TOKEN')
 
     # Construct the URL for reloading the website
     url = f'https://www.pythonanywhere.com/api/v0/user/{username}/webapps/andsande.pythonanywhere.com/reload/'
