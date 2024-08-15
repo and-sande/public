@@ -1,13 +1,3 @@
-try:
-    import undetected_chromedriver as uc
-except ImportError:
-    import subprocess
-    subprocess.check_call(["python", "-m", "pip", "install", "undetected-chromedriver"])
-    import undetected_chromedriver as uc
-
-# Your existing code here
-
-
 import re
 import pandas as pd
 from selenium import webdriver
@@ -41,11 +31,10 @@ def main_flow():
         {"name": "e-tron", "url": "https://www.finn.no/car/used/search.html?model=1.744.2000503&page="},
         {"name": "e-tron_GT", "url": "https://www.finn.no/car/used/search.html?model=1.744.2000540&page="},
         {"name": "e-tron_Sportback", "url": "https://www.finn.no/car/used/search.html?model=1.744.8373&page="},
-
     ]
     # PythonAnywhere credentials
-    username = "andsande"
-    api_token = "f76bb882c94ff3286f770c494534bb03b9ed27a4"
+    username = os.getenv('PYTHONANYWHERE_USERNAME')
+    api_token = os.getenv('PYTHONANYWHERE_API')
     pythonanywhere_path = f'/home/{username}/mysite/templates/{car_brand}.xlsx'
 
     # Download the Excel file from PythonAnywhere
@@ -343,8 +332,8 @@ def main_flow():
     def upload_json_to_pythonanywhere(json_file):
         for attempt in range(3):
             # Define PythonAnywhere file path to upload the file to
-            username = 'andsande'
-            api_token = 'f76bb882c94ff3286f770c494534bb03b9ed27a4'
+            username = os.getenv('PYTHONANYWHERE_USERNAME')
+            api_token = os.getenv('PYTHONANYWHERE_API')
             pythonanywhere_file_path = f'/home/{username}/mysite/static/assets/json/{json_file}'
 
             # Define PythonAnywhere upload URL
@@ -369,8 +358,8 @@ def main_flow():
 
                 # Upload to FTP server
                 ftp_server = 'elbilstats.no'
-                ftp_username = 'cvkkwedh'
-                ftp_password = '!Adwo20!Adwo20'  # Replace with your actual password
+                ftp_username = os.getenv('ELBILSTATS_FTP_USERNAME')
+                ftp_password = os.getenv('ELBILSTATS_FTP_PASSWORD')
                 ftp_directory = 'public_html/static/assets/json'
 
                 upload_file_to_ftp(ftp_server, ftp_username, ftp_password, ftp_directory, json_file)
