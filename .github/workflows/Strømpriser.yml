@@ -21,7 +21,6 @@ jobs:
             -e PREFECT_API_URL=${{ secrets.PREFECT_API_URL }} \
             -e STROMPRISER_USERNAME=${{ secrets.STROMPRISER_USERNAME }} \
             -e STROMPRISER_API_TOKEN=${{ secrets.STROMPRISER_API_TOKEN }} \
-
             -v ${{ github.workspace }}:/workspace \
             -w /workspace \
             andsande/prefect:latest \
