@@ -25,5 +25,5 @@ jobs:
             -v ${{ github.workspace }}:/workspace \
             -w /workspace \
             andsande/prefect:latest \
-            bash -c "pip install undetected-chromedriver && python 'Code/Elbilstats/Elbilstats update daily.py'"
+            bash -c "pip install undetected-chromedriver && python 'Code/Elbilstats/audi.py'"
       
