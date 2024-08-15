@@ -57,7 +57,7 @@ def main_flow():
     chromedriver_autoinstaller.install()
     # Chrome options
     chrome_options = webdriver.ChromeOptions()
-    options = ["--headless=new", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage", "--disable-search-engine-choice-screen"]
+    options = ["--headless", "--disable-gpu", "--no-sandbox", "--disable-dev-shm-usage", "--disable-search-engine-choice-screen"]
     for option in options:
         chrome_options.add_argument(option)
 
@@ -73,12 +73,13 @@ def main_flow():
         time.sleep(4)
 
         try:
-            # Handle iframe for cookies consent if present
-            WebDriverWait(driver, 3).until(
-                EC.visibility_of_element_located((By.ID, "sp_message_iframe_1108234"))
+            # Locate the iframe using an XPath expression that matches IDs starting with "sp_message_iframe_"
+            iframe = WebDriverWait(driver, 3).until(
+                EC.presence_of_element_located((By.XPATH, "//iframe[starts-with(@id, 'sp_message_iframe_')]"))
             )
-            iframe = driver.find_element(By.ID, 'sp_message_iframe_1108234')
             driver.switch_to.frame(iframe)
+
+            # Find and click the "Godta alle" button
             button = WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[title="Godta alle"]'))
             )
