@@ -192,8 +192,8 @@ def upload_file_today():
     max_attempts = 3 
     for attempt in range (1, max_attempts + 1):
         # Define PythonAnywhere username and API token
-        username = os.getenv('STROMPRISER_USERNAME')
-        api_token = os.getenv('STROMPRISER_API_TOKEN')
+        username = os.getenv('PYTHONANYWHERE_USERNAME')
+        api_token = os.getenv('PYTHONANYWHERE_API')
 
         # Define file path of the Excel file to upload
         excel_today = "./Strompriser/strompriser_today.xlsx"
@@ -236,8 +236,8 @@ def upload_file_yesterday():
     max_attempts = 3 
     for attempt in range (1, max_attempts + 1):
         # Define PythonAnywhere username and API token
-        username = os.getenv('STROMPRISER_USERNAME')
-        api_token = os.getenv('STROMPRISER_API_TOKEN')
+        username = os.getenv('PYTHONANYWHERE_USERNAME')
+        api_token = os.getenv('PYTHONANYWHERE_API')
 
         # Define file path of the Excel file to upload
         excel_yesterday = "./Strompriser/strompriser_yesterday.xlsx"
@@ -278,8 +278,8 @@ def upload_file_yesterday():
 @task
 def Reload_PY_server():
     
-    username = os.getenv('STROMPRISER_USERNAME')
-    api_token = os.getenv('STROMPRISER_API_TOKEN')
+    username = os.getenv('PYTHONANYWHERE_USERNAME')
+    api_token = os.getenv('PYTHONANYWHERE_API')
 
     # Construct the URL for reloading the website
     url = f'https://www.pythonanywhere.com/api/v0/user/{username}/webapps/andsande.pythonanywhere.com/reload/'
