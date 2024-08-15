@@ -3,7 +3,7 @@ name: Elbilstats Update Daily
 on:
   workflow_dispatch:
   schedule: 
-    - cron: "0 12 * * *"
+    - cron: "0 7-21 * * 1-5"
 
 jobs:
   run-script:
@@ -21,6 +21,9 @@ jobs:
             -e PREFECT_API_URL=${{ secrets.PREFECT_API_URL }} \
             -e PYTHONANYWHERE_USERNAME=${{ secrets.PYTHONANYWHERE_USERNAME }} \
             -e PYTHONANYWHERE_API=${{ secrets.PYTHONANYWHERE_API }} \
+            -e ELBILSTATS_FTP_USERNAME=${{ secrets.ELBILSTATS_FTP_USERNAME }} \
+            -e ELBILSTATS_FTP_PASSWORD=${{ secrets.ELBILSTATS_FTP_PASSWORD }} \
+
             -v ${{ github.workspace }}:/workspace \
             -w /workspace \
             andsande/prefect:latest \

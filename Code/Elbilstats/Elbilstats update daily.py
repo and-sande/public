@@ -204,8 +204,8 @@ def main_flow():
 
                 # Upload to FTP server
                 ftp_server = 'elbilstats.no'
-                ftp_username = 'cvkkwedh'
-                ftp_password = '!Adwo20!Adwo20'  # Replace with your actual password
+                ftp_username = os.getenv('ELBILSTATS_FTP_USERNAME')
+                ftp_password = os.getenv('ELBILSTATS_FTP_PASSWORD')
                 ftp_directory = 'public_html/static/assets/json'
 
                 upload_file_to_ftp(ftp_server, ftp_username, ftp_password, ftp_directory, json_file)
