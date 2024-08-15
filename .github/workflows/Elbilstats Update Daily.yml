@@ -26,5 +26,5 @@ jobs:
             -v ${{ github.workspace }}:/workspace \
             -w /workspace \
             andsande/prefect:latest \
-            python Code/Elbilstats/Elbilstats update daily.py
+            python "Code/Elbilstats/Elbilstats update daily.py"
       
