@@ -1,11 +1,3 @@
-try:
-    import undetected_chromedriver as uc
-except ImportError:
-    import subprocess
-    subprocess.check_call(["python", "-m", "pip", "install", "undetected-chromedriver"])
-    import undetected_chromedriver as uc
-
-
 import re
 import pandas as pd
 from selenium import webdriver
@@ -39,8 +31,8 @@ def main_flow():
     excel_url = "/home/andsande/mysite/templates/tesla.xlsx"
 
     # Your PythonAnywhere username and API token
-    username = "andsande"
-    api_token = "f76bb882c94ff3286f770c494534bb03b9ed27a4"
+    username = os.getenv('PYTHONANYWHERE_USERNAME')
+    api_token = os.getenv('PYTHONANYWHERE_API')
 
     # Define the file path on PythonAnywhere to download
     pythonanywhere_file_path = '/home/andsande/mysite/templates/tesla.xlsx'
@@ -80,10 +72,11 @@ def main_flow():
 
     # Add your options as needed
     options = [
-        "--window-size=1920,1080",
+        # "--window-size=1920,1080",
         # '--proxy-server=http://%s' % PROXY,
         # "--ignore-certificate-errors",
-        "--headless=new"
+        "--headless",
+        "--disable-search-engine-choice-screen"
         # "--disable-popup-blocking"
         # "--disable-notifications"
     ]
@@ -117,27 +110,20 @@ def main_flow():
     driver.get("https://www.finn.no/car/used/search.html?model=1.8078.2000501&page=1")
     time.sleep(4)
     try:
-        # Switch to the iframe
-        WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located((By.ID, "sp_message_iframe_1108234"))
-    )
-        iframe = driver.find_element(By.ID, 'sp_message_iframe_1108234')
+        # Locate the iframe using an XPath expression that matches IDs starting with "sp_message_iframe_"
+        iframe = WebDriverWait(driver, 3).until(
+            EC.presence_of_element_located((By.XPATH, "//iframe[starts-with(@id, 'sp_message_iframe_')]"))
+        )
         driver.switch_to.frame(iframe)
 
-        # Wait for the button to be clickable
+        # Find and click the "Godta alle" button
         button = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, 'button[title="Godta alle"]'))
         )
-
-        # Click the button
         button.click()
-
     except TimeoutException:
-        print("Button not found. Continuing without accepting cookies.")
-        driver.save_screenshot("timeout_exception.png")  # Save a screenshot for debugging
-        # Continue with your script even if the button is not found
+        print(f"No cookies button found. Continuing without accepting cookies.")
 
-    # Switch back to the default content
     driver.switch_to.default_content()
 
     # Step 1: Read Existing Data from Excel
@@ -865,15 +851,15 @@ def main_flow():
     max_attempts = 3 
     for attempt in range (1, max_attempts + 1):
             # Define PythonAnywhere username and API token
-            username = 'andsande'
-            api_token = 'f76bb882c94ff3286f770c494534bb03b9ed27a4'
+            username = os.getenv('PYTHONANYWHERE_USERNAME')
+            api_token = os.getenv('PYTHONANYWHERE_API')
 
             # Define file path of the Excel file to upload
             tesla = "./tesla.xlsx"
             file_path = tesla
 
             # Define PythonAnywhere file path to upload the file to
-            pythonanywhere_file_path = '/home/andsande/mysite/templates/tesla.xlsx'
+            pythonanywhere_file_path = f'/home/{username}/mysite/templates/tesla.xlsx'
 
             # Define PythonAnywhere upload URL
             upload_url = f'https://www.pythonanywhere.com/api/v0/user/{username}/files/path{pythonanywhere_file_path}'
@@ -959,8 +945,8 @@ def main_flow():
     def upload_json_to_pythonanywhere(json_file):
         for attempt in range(3):
         # Define PythonAnywhere file path to upload the file to
-            username = 'andsande'
-            api_token = 'f76bb882c94ff3286f770c494534bb03b9ed27a4'
+            username = os.getenv('PYTHONANYWHERE_USERNAME')
+            api_token = os.getenv('PYTHONANYWHERE_API')
             pythonanywhere_file_path = f'/home/{username}/mysite/static/assets/json/{json_file}'
 
             # Define PythonAnywhere upload URL
@@ -985,8 +971,8 @@ def main_flow():
 
                 # Upload to FTP server
                 ftp_server = 'elbilstats.no'
-                ftp_username = 'cvkkwedh'
-                ftp_password = '!Adwo20!Adwo20'  # Replace with your actual password
+                ftp_username = os.getenv('ELBILSTATS_FTP_USERNAME')
+                ftp_password = os.getenv('ELBILSTATS_FTP_PASSWORD')
                 ftp_directory = 'public_html/static/assets/json'
 
                 upload_file_to_ftp(ftp_server, ftp_username, ftp_password, ftp_directory, json_file)
