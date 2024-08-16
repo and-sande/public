@@ -31,7 +31,7 @@ jobs:
             -e ELBILSTATS_FTP_USERNAME=${{ secrets.ELBILSTATS_FTP_USERNAME }} \
             -e ELBILSTATS_FTP_PASSWORD=${{ secrets.ELBILSTATS_FTP_PASSWORD }} \
             -v ${{ github.workspace }}:/workspace \
-            -v ${{ github.workspace }}/private-repo:/private-repo  # Corrected backslash issue
+            -v ${{ github.workspace }}/private-repo:/private-repo \
             -w /workspace \
             andsande/prefect:latest \
             bash -c "pip install undetected-chromedriver && python '/private-repo/Website/Teslaprices/audi.py'"
