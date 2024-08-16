@@ -1,0 +1,37 @@
+name: Elbilstats - VW
+on:
+  workflow_dispatch:
+  schedule: 
+    - cron: "0 7,10,13,16,19 * * 1-5"
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      # Checkout the private repository code
+      - name: Checkout private repository code
+        uses: actions/checkout@v2
+        with:
+          repository: and-sande/Default  # Replace with your private repo details
+          token: ${{ secrets.PAT_TOKEN }}  # Ensure PAT_TOKEN is correctly set in your secrets
+          path: private-repo       
+
+      # Run the Docker container
+      - name: Run script in Docker container
+        run: |
+          docker run --shm-size=1g --memory=2g --cpus=2 \
+            -e PREFECT_API_KEY=${{ secrets.PREFECT_API_KEY }} \
+            -e PREFECT_API_URL=${{ secrets.PREFECT_API_URL }} \
+            -e PYTHONANYWHERE_USERNAME=${{ secrets.PYTHONANYWHERE_USERNAME }} \
+            -e PYTHONANYWHERE_API=${{ secrets.PYTHONANYWHERE_API }} \
+            -e ELBILSTATS_FTP_USERNAME=${{ secrets.ELBILSTATS_FTP_USERNAME }} \
+            -e ELBILSTATS_FTP_PASSWORD=${{ secrets.ELBILSTATS_FTP_PASSWORD }} \
+            -v ${{ github.workspace }}:/workspace \
+            -v ${{ github.workspace }}/private-repo:/private-repo \
+            -w /workspace \
+            andsande/prefect:latest \
+            bash -c "pip install undetected-chromedriver && python '/private-repo/Website/Teslaprices/vw.py'"
