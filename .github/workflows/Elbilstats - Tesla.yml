@@ -1,4 +1,4 @@
-name: Elbilstats - Audi
+name: Elbilstats - Tesla
 on:
   workflow_dispatch:
   schedule: 
