@@ -17,7 +17,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: and-sande/Default  # Replace with your private repo details
-          ssh-key: ${{ secrets.PAT_TOKEN }}  # Replace with your secret or use `token` if using PAT
+          token: ${{ secrets.PAT_TOKEN }}  # Ensure PAT_TOKEN is correctly set in your secrets
           path: private-repo       
 
       # Run the Docker container
@@ -31,7 +31,7 @@ jobs:
             -e ELBILSTATS_FTP_USERNAME=${{ secrets.ELBILSTATS_FTP_USERNAME }} \
             -e ELBILSTATS_FTP_PASSWORD=${{ secrets.ELBILSTATS_FTP_PASSWORD }} \
             -v ${{ github.workspace }}:/workspace \
-            -v ${{ github.workspace }}/private-repo:/private-repo \  # Mount the private repo
+            -v ${{ github.workspace }}/private-repo:/private-repo  # Corrected backslash issue
             -w /workspace \
             andsande/prefect:latest \
-            bash -c "pip install undetected-chromedriver && python '/Default/Website/Teslaprices/audi.py'"
+            bash -c "pip install undetected-chromedriver && python '/private-repo/Website/Teslaprices/audi.py'"
