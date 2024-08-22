@@ -34,4 +34,14 @@ jobs:
             -v ${{ github.workspace }}/private-repo:/private-repo \
             -w /workspace \
             andsande/prefect:latest \
-            bash -c "pip install undetected-chromedriver && python '/private-repo/Website/Teslaprices/vw.py'"
+            bash -c "
+              apt-get update &&
+              apt-get install -y wget &&
+              wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - &&
+              sh -c 'echo \"deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main\" >> /etc/apt/sources.list.d/google-chrome.list' &&
+              apt-get update &&
+              apt-get install -y google-chrome-stable &&
+              google-chrome --version &&
+              pip install undetected-chromedriver &&
+              python '/private-repo/Website/Teslaprices/audi.py'
+            "
