@@ -43,5 +43,5 @@ jobs:
               apt-get install -y google-chrome-stable &&
               google-chrome --version &&
               pip install undetected-chromedriver &&
-              python '/private-repo/Website/Teslaprices/audi.py'
+              python '/private-repo/Website/Teslaprices/mercedes.py'
             "
