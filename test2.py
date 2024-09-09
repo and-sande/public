@@ -1,6 +1,8 @@
-from pywinauto import Desktop
+from prefect import flow
 
-# List all open windows to check for the Adobe Acrobat window
-windows = Desktop(backend="uia").windows()
-for window in windows:
-    print(f"Title: '{window.window_text()}', Class: '{window.class_name()}'")
+@flow
+def my_flow():
+    print("Running my flow!")
+
+if __name__ == "__main__":
+    my_flow.serve()
