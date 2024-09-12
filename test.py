@@ -17,4 +17,4 @@ time.sleep(0.5)  # Give a moment for the address bar to focus
 
 # Type the desired path
 dlg_f.type_keys("C:\\Users\\", with_spaces=True)
-dlg_f.type_keys('{ENTER}')  # Press Enter to navigate
+dlg_f.type_keys('{ENTER}')  # Press Enter to navigateasfasf
