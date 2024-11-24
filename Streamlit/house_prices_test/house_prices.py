@@ -3,12 +3,8 @@ import pandas as pd
 from pycaret.regression import load_model, predict_model
 import os
 
-# Debugging: Print the current working directory and list files
-print("Current working directory:", os.getcwd())
-print("Files in the current directory:", os.listdir("."))
-
 # Load the trained model
-model = load_model("./best_regression_model")  # Replace with your saved model name
+model = load_model("./Streamlit/house_prices_test/best_regression_model")
 
 # Title for the app
 st.title("House Price Prediction App")
