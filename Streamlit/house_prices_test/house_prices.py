@@ -3,7 +3,7 @@ import pandas as pd
 from pycaret.regression import load_model, predict_model
 
 # Load the trained model
-model = load_model("best_regression_model")  # Replace with your saved model name
+model = load_model("./best_regression_model")  # Replace with your saved model name
 
 # Title for the app
 st.title("House Price Prediction App")
