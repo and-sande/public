@@ -5,6 +5,8 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from starlette.responses import Response
+from prometheus_client import Counter, generate_latest
 
 # Initialize FastAPI app
 app = FastAPI()
@@ -36,3 +38,8 @@ async def read_item(item_id: int):
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
+
+@app.get("/metrics")
+def metrics():
+    # Expose metrics in Prometheus format
+    return Response(content=generate_latest(), media_type="text/plain")
