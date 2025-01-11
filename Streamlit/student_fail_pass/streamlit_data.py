@@ -3,7 +3,11 @@ import pickle
 import joblib
 
 # Load your trained model
-model = joblib.load('./student_performance_model.pkl')
+import os
+
+# Get the absolute path to the .pkl file
+model_path = os.path.abspath('student_performance_model.pkl')
+model = joblib.load(model_path)
 
 # Title of the app
 st.title("Student Performance Predictor")
